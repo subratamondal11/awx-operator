@@ -17,8 +17,9 @@ PULL_SECRET_FILE=${PULL_SECRET_FILE:-hacking/pull-secret.yml}
 
 # -- Check for required variables
 # Set the following environment variables
-# export NAMESPACE=awx
-# export QUAY_USER=developer
+export QUAY_USER=subratamondal11
+export NAMESPACE=awx
+export TAG=test
 
 if [ -z "$QUAY_USER" ]; then
   echo "Error: QUAY_USER env variable is not set."
@@ -32,7 +33,8 @@ if [ -z "$NAMESPACE" ]; then
 fi
 
 # -- Container Build Engine (podman or docker)
-ENGINE=${ENGINE:-podman}
+# ENGINE=${ENGINE:-podman}
+ENGINE=${ENGINE:-docker}
 
 # -- Variables
 IMG=quay.io/$QUAY_USER/awx-operator
@@ -134,7 +136,8 @@ make deploy IMG=$IMG:$TAG NAMESPACE=$NAMESPACE
 
 # -- Create CR
 # uncomment the CR you want to use
-$KUBE_APPLY dev/awx-cr/awx-openshift-cr.yml
+$KUBE_APPLY awx-demo.yml
+# $KUBE_APPLY dev/awx-cr/awx-openshift-cr.yml
 # $KUBE_APPLY dev/awx-cr/awx-cr-settings.yml
 # $KUBE_APPLY dev/awx-cr/awx-k8s-ingress.yml
 

@@ -1,8 +1,15 @@
-FROM quay.io/operator-framework/ansible-operator:v1.36.1
+# FROM quay.io/operator-framework/ansible-operator:v1.36.1
+FROM quay.io/operator-framework/ansible-operator:main
 
 USER root
-RUN dnf update --security --bugfix -y && \
-    dnf install -y openssl
+# RUN dnf update --security --bugfix -y && \
+#     dnf install -y openssl
+
+# RUN microdnf update --security --bugfix -y
+RUN microdnf update -y && \
+    microdnf install -y openssl
+
+# RUN microdnf install -y openssl vim
 
 USER 1001
 
